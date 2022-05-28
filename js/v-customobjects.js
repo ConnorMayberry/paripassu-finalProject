@@ -159,7 +159,7 @@ Vue.component("obj-world", {
 		<a-plane 
 			roughness="1"
 			shadow 
-			color="hsl(140,40%,40%)"
+			color="hsl(184,40%,55%)"
 			height="100" 
 			width="100" 
 			rotation="-90 0 0">
@@ -190,6 +190,56 @@ Vue.component("obj-world", {
 			:rotation="tree.rotation.toAFrame()"
 			:position="tree.position.toAFrame()">
 		</a-cone>
+
+		<!-- snowmen -->
+		<a-entity>
+			<a-sphere
+				v-for="(snowman, index) in snowmen"	
+				:key="'snowmanBase' + index"
+				:position="snowman.position.x.toAFrame()"
+				:radius="snowman.size.x"
+				color="#FFFFFF">
+			</a-sphere>
+			<a-sphere
+				v-for="(snowman, index) in snowmen"	
+				:key="'snowmanMiddle' + index"
+				:position="snowman.position.y.toAFrame()"
+				:radius="snowman.size.y"
+				color="#FFFFFF">
+			</a-sphere>
+			<a-sphere
+				v-for="(snowman, index) in snowmen"	
+				:key="'snowmanTop' + index"
+				:position="snowman.position.z.toAFrame()"
+				:radius="snowman.size.z"
+				color="#FFFFFF">
+			</a-sphere>
+
+			<a-sphere
+				v-for="(snowman, index) in snowmen"	
+				:key="'snowmanLeftEye' + index"
+				:position="snowman.leftEyePosition"
+				:radius=".05"
+				color="#000000">
+			</a-sphere>
+			<a-sphere
+				v-for="(snowman, index) in snowmen"	
+				:key="'snowmanRightEye' + index"
+				:position="snowman.rightEyePosition"
+				:radius=".05"
+				color="#000000">
+			</a-sphere>
+
+			<a-sphere
+				v-for="(snowman, index) in snowmen"	
+				:key="'snowmanNose' + index"
+				:position="snowman.nosePosition"
+				:radius=".05"
+				scale="5 1"
+				color="#FFA500">
+			</a-sphere>
+			
+		</a-entity>
 
 		
 
@@ -254,11 +304,15 @@ Vue.component("obj-world", {
 			rock.lookAt(Math.random()*100,Math.random()*100,Math.random()*100)
 			rocks.push(rock)
 		}
+		console.log("rocks[0]: ", rocks[0])
 
+		let snowmenCount = 20;
+		let snowmen = createSnowmen(snowmenCount)
 
 		return {
 			trees: trees,
-			rocks: rocks
+			rocks: rocks,
+			snowmen: snowmen
 		}
 	},
 
