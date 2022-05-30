@@ -149,7 +149,7 @@ class Room {
 					
 					console.log("New fake user")
 					// Create a fake head object
-					let head = new LiveObject(undefined, {
+					let head = new LiveObject(this, {
 						paritype: "head",
 						authID: "FAKE_" + uuidv4(),
 						displayName: words.getUserName(),

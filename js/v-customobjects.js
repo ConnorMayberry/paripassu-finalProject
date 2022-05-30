@@ -13,17 +13,24 @@ Vue.component("obj-head", {
 			<obj-axes scale=".1 .1 .1" v-if="true" />
 		</a-sphere>
 
-		<a-box v-for="(spike,index) in spikes"
-			:depth="headSize*2"
-			:height="headSize*.2"
-			:width="headSize*2"
-			:position="spike.position.toAFrame(0, .2, 0)"
-			:rotation="spike.rotation.toAFrame()"
-			:color="obj.color.toHex(Math.sin(index))" 
-				
+		<a-entity v-if="hat"
+			position="0 0.2 0"				
 			>
+			<a-cylinder
+				height="0.025"
+				:radius="hat.r"
+				:color="hat.color.toHex(0,0.5)"
+				>
+			</a-cylinder>
+			<a-cylinder
+				:height="hat.h"
+				:radius="hat.r - 0.1"
+				:color="hat.color.toHex(0,0.5)"
+				:position="hat.pos.toAFrame()"
+				>
+			</a-cylinder>
 		
-		</a-box>
+		</a-entity>
 	</a-entity>
 	`,
 	computed: {
@@ -36,26 +43,22 @@ Vue.component("obj-head", {
 	},
 
 	data() {
-		let spikeCount = 5
-		let spikes = []
-
-		for (var i = 0; i < spikeCount; i++) {
-			let h = .1
-			let spike = new LiveObject(undefined, { 
-				size: new THREE.Vector3(h*.2, h, h*.2),
-				color: new Vector(noise(i)*30 + 140, 0, 40 + 20*noise(i*3))
-			})
-			let r = .2
-			// Put them on the other side
-			let theta = 2*noise(i*10) + 3
-			spike.position.setToCylindrical(r, theta, h*.3)
-			// Look randomly
-			spike.lookAt(0, 3, 0)
-			spikes.push(spike)
-		}
+		let hat = new LiveObject(undefined, { 
+			r: 0.1 + Math.abs(noise(this.obj.room.time.t)*0.5),
+			h: Math.abs(noise(this.obj.room.time.t) + 0.5),
+			color: new Vector(noise(this.obj.room.time.t)*360, 100, 40 + 20*noise(this.obj.room.time.t*3))
+		})
+		hat.pos = new Vector(0, hat.h/2, 0)
+		console.log(hat.color.toCSSColor(0,0.5))
+		//let r = .2
+		// Put them on the other side
+		// let theta = 2*noise(this.room.time.t*10) + 3
+		// spike.position.setToCylindrical(r, theta, h*.3)
+		// // Look randomly
+		// spike.lookAt(0, 3, 0)
 
 		return {
-			spikes: spikes
+			hat: hat
 		}
 	},
 
