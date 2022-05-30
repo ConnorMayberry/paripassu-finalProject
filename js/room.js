@@ -101,12 +101,12 @@ class Room {
 	}
 
 	handleUpdate(data) {
-		
 		// Which are we missing?
 		for (const [uid, objData] of Object.entries(data)) {
 			if (this.objects[uid] === undefined) {
 				console.log("Create new local object from server data", uid.slice(-4), objData.paritype)
 				let localObj = new LiveObject(this, objData)
+				Vue.set(localObj, 'label', grammar.flatten("#word#"))
 			}
 
 			// Copy over the data
@@ -154,7 +154,6 @@ class Room {
 						authID: "FAKE_" + uuidv4(),
 						displayName: words.getUserName(),
 						height: 1.6 + Math.random()*.2,
-						label: "fake",
 						color: new Vector(Math.random()*360, 100, 50),
 						setForce({t, dt, frameCount}) {
 							let idNumber = this.uid.hashCode()
@@ -171,6 +170,7 @@ class Room {
 						}
 					})
 					head.position.setToCylindrical(3, 4 + Math.random(), 1)
+					Vue.set(head, 'label', grammar.flatten("#word#"))
 					fakeBodies.push(head)
 				
 

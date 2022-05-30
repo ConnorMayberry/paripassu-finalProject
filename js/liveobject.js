@@ -12,7 +12,7 @@ Vue.component("live-object", {
 			:value="obj.label"
 			:width="obj.labelWidth || 1"
 			:color="obj.labelColor||obj.labelColor||'black'"
-			:position="obj.position.toAFrame(0,.2 + (obj.size.y||obj.size),0)"
+			:position="obj.position.toAFrame(0,0.5 + (obj.size.y||obj.size),0)"
 			:rotation="obj.cameraFacing.rotation.toAFrame()"
 			>
 		</a-text>
@@ -46,12 +46,11 @@ class LiveObject extends THREE.Object3D {
  		
  		this.handleUpdate(data)
 
- 		// Particle things
+
+		 // Particle things
  		this.v = new THREE.Vector3()
  		this.v = new THREE.Vector3()
  		this.f = new THREE.Vector3()
-
- 		
  		
  		// Give me a uid and add me to the room
  		if (!room) {
@@ -118,7 +117,7 @@ class LiveObject extends THREE.Object3D {
 
  	handleUpdate(data) {
 		for (const [key, value] of Object.entries(data)) {
-			// console.log(key, value)
+			//console.log(key, value)
  				
 			if (key === "position" || key === "rotation") {
 				this[key].set(...value)
@@ -131,7 +130,8 @@ class LiveObject extends THREE.Object3D {
  	toPost() {
  		// TODO: reduce post to only stuff that changed
 		return {
-			label: this.label,
+			//label: this.label,
+			labelWidth: 5,
 			position: this.position.toArray(),
 			rotation: this.rotation.toArray(),
 			uid: this.uid,
