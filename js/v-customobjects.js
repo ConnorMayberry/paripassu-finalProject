@@ -4,17 +4,17 @@ const fakeBodySteps = 500
 // Decorate the head of our guests
 Vue.component("obj-head", {
 	template: `<a-entity>
-		<a-sphere 
+		<a-sphere
 			shadow
 			:radius="headSize"
-			:color="obj.color.toHex()" 
-				
+			:color="obj.color.toHex()"
+
 			>
 			<obj-axes scale=".1 .1 .1" v-if="true" />
 		</a-sphere>
 
 		<a-entity v-if="hat"
-			position="0 0.2 0"				
+			position="0 0.2 0"
 			>
 			<a-cylinder
 				height="0.025"
@@ -29,7 +29,7 @@ Vue.component("obj-head", {
 				:position="hat.pos.toAFrame()"
 				>
 			</a-cylinder>
-		
+
 		</a-entity>
 	</a-entity>
 	`,
@@ -43,7 +43,7 @@ Vue.component("obj-head", {
 	},
 
 	data() {
-		let hat = new LiveObject(undefined, { 
+		let hat = new LiveObject(undefined, {
 			r: 0.1 + Math.abs(noise(this.obj.room.time.t)*0.5),
 			h: Math.abs(noise(this.obj.room.time.t) + 0.5),
 			color: new Vector(noise(this.obj.room.time.t)*360, 100, 40 + 20*noise(this.obj.room.time.t*3))
@@ -72,10 +72,10 @@ Vue.component("obj-head", {
 Vue.component("obj-fire", {
 	template: `
 	<a-entity>
-		<a-sphere 
+		<a-sphere
 			color="grey"
-			radius=2 
-			scale="1 .3 1" 
+			radius=2
+			scale="1 .3 1"
 			roughness=1
 			segments-height="5"
 			segments-width="10"
@@ -116,7 +116,7 @@ Vue.component("obj-fire", {
 		fireMaterial() {
 			return `emissive:${this.obj.color.toHex(.2)}`
 		},
-		
+
 		animationSpeed() {
 			return 500
 		},
@@ -161,37 +161,37 @@ Vue.component("obj-world", {
 		<!--------- SKYBOX --------->
 		<a-sky color="lightblue"></a-sky>
 
-		<a-plane 
+		<a-plane
 			roughness="1"
-			shadow 
+			shadow
 			color="hsl(184,40%,55%)"
-			height="100" 
-			width="100" 
+			height="100"
+			width="100"
 			rotation="-90 0 0">
 		</a-plane>
 
-		<!---- lights ----> 
+		<!---- lights ---->
 		<a-entity light="type: ambient; intensity: 0.4;" color="white"></a-entity>
-		<a-light type="directional" 
-			position="0 0 0" 
-			rotation="-90 0 0" 
+		<a-light type="directional"
+			position="0 0 0"
+			rotation="-90 0 0"
 			intensity="0.4"
 			castShadow target="#directionaltarget">
 			<a-entity id="directionaltarget" position="-10 0 -20"></a-entity>
 		</a-light>
 
-		<!-- <a-cone 
+		<!-- <a-cone
 			v-for="(tree,index) in trees"
 			:key="'tree' + index"
-			shadow 
+			shadow
 
 			:color="tree.color.toHex()"
-			:base-radius="tree.size.z" 
-			:height="tree.size.y" 
+			:base-radius="tree.size.z"
+			:height="tree.size.y"
 
 			segments-radial=10
 			segments-height=1
-			
+
 			:rotation="tree.rotation.toAFrame()"
 			:position="tree.position.toAFrame()">
 		</a-cone> -->
@@ -199,21 +199,21 @@ Vue.component("obj-world", {
 		<!-- snowmen -->
 		<a-entity>
 			<a-sphere
-				v-for="(snowman, index) in snowmen"	
+				v-for="(snowman, index) in snowmen"
 				:key="'snowmanBase' + index"
 				:position="snowman.position.x.toAFrame()"
 				:radius="snowman.size.x"
 				color="#FFFFFF">
 			</a-sphere>
 			<a-sphere
-				v-for="(snowman, index) in snowmen"	
+				v-for="(snowman, index) in snowmen"
 				:key="'snowmanMiddle' + index"
 				:position="snowman.position.y.toAFrame()"
 				:radius="snowman.size.y"
 				color="#FFFFFF">
 			</a-sphere>
 			<a-sphere
-				v-for="(snowman, index) in snowmen"	
+				v-for="(snowman, index) in snowmen"
 				:key="'snowmanTop' + index"
 				:position="snowman.position.z.toAFrame()"
 				:radius="snowman.size.z"
@@ -221,14 +221,14 @@ Vue.component("obj-world", {
 			</a-sphere>
 
 			<a-sphere
-				v-for="(snowman, index) in snowmen"	
+				v-for="(snowman, index) in snowmen"
 				:key="'snowmanLeftEye' + index"
 				:position="snowman.leftEyePosition"
 				:radius=".05"
 				color="#000000">
 			</a-sphere>
 			<a-sphere
-				v-for="(snowman, index) in snowmen"	
+				v-for="(snowman, index) in snowmen"
 				:key="'snowmanRightEye' + index"
 				:position="snowman.rightEyePosition"
 				:radius=".05"
@@ -236,30 +236,62 @@ Vue.component("obj-world", {
 			</a-sphere>
 
 			<a-sphere
-				v-for="(snowman, index) in snowmen"	
+				v-for="(snowman, index) in snowmen"
 				:key="'snowmanNose' + index"
 				:position="snowman.nosePosition"
 				:radius=".05"
 				scale="5 1"
 				color="#FFA500">
 			</a-sphere>
-			
+
 		</a-entity>
 
-		
 
-		<!-- <a-box 
+		<!-- igloos -->
+		<a-entity>
+			<a-sphere
+				v-for="(igloo, index) in igloos"
+				:key="'iglooBase' + index"
+				:position="igloo.position.x.toAFrame()"
+				:radius="igloo.size.x"
+				color="#FFFFFF">
+			</a-sphere>
+
+			<a-box scale="1 5 1"
+				v-for="(igloo, index) in igloos"
+				:key="'iglooChimney' + index"
+				:position="igloo.chimneyPosition"
+				:radius=".5"
+				color="#54585B">
+			</a-box>
+
+			<a-box scale="5 5 3"
+				v-for="(igloo, index) in igloos"
+				:key="'iglooDoor' + index"
+				:position="igloo.doorPosition"
+				:radius=".5"
+				src="#/img/textures/igloos-wall.png">
+			</a-box>
+
+
+
+
+		</a-entity>
+
+
+
+		<!-- <a-box
 			v-for="(rock,index) in rocks"
 			:key="'rock' + index"
-			shadow 
+			shadow
 
 			roughness="1"
 
 			:color="rock.color.toHex()"
-			:width="rock.size.x" 
-			:depth="rock.size.z" 
-			:height="rock.size.y" 
-			
+			:width="rock.size.x"
+			:depth="rock.size.z"
+			:height="rock.size.y"
+
 			:rotation="rock.rotation.toAFrame()"
 			:position="rock.position.toAFrame()">
 		</a-box> -->
@@ -272,17 +304,17 @@ Vue.component("obj-world", {
 
 		// EXAMPLE: Generated landscape
 		// Make some random trees and rocks
-		// Create a lot of LiveObjects (just as a way 
+		// Create a lot of LiveObjects (just as a way
 		//  to store size and color conveniently)
 		// Interpret them as whatever A-Frame geometry you want!
 		// Cones, spheres, entities with multiple ...things?
-		// If you only use "noise" and not "random", 
+		// If you only use "noise" and not "random",
 		// everyone will have the same view. (Wordle-style!)
 		let trees = []
 		let count = 30
 		for (var i = 0; i < count; i++) {
 			let h = 6 + 4*noise(i) // Size from 1 to 3
-			let tree = new LiveObject(undefined, { 
+			let tree = new LiveObject(undefined, {
 				size: new THREE.Vector3(.3, h, .3),
 				color: new Vector(noise(i*50)*30 + 160, 100, 40 + 10*noise(i*10))
 			})
@@ -297,7 +329,7 @@ Vue.component("obj-world", {
 		let rockCount = 20
 		for (var i = 0; i < rockCount; i++) {
 			let h = 1.2 + noise(i*100) // Size from 1 to 3
-			let rock = new LiveObject(undefined, { 
+			let rock = new LiveObject(undefined, {
 				size: new THREE.Vector3(h, h, h),
 				color: new Vector(noise(i)*30 + 140, 0, 40 + 20*noise(i*3))
 			})
@@ -314,10 +346,14 @@ Vue.component("obj-world", {
 		let snowmenCount = 20;
 		let snowmen = createSnowmen(snowmenCount)
 
+		let igloosCount = 4;
+		let igloos = createIgloos(igloosCount)
+
 		return {
 			trees: trees,
 			rocks: rocks,
-			snowmen: snowmen
+			snowmen: snowmen,
+			igloos: igloos
 		}
 	},
 
@@ -331,7 +367,7 @@ Vue.component("obj-world", {
 			// onUpdate({t, dt, frameCount}) {
 			// 	let hue = (noise(t*.02)+1)*180
 			// 	Vue.set(this.color.v, 0, hue)
-				
+
 			// 	// console.log(hue)
 			// }
 		})
@@ -345,7 +381,7 @@ Vue.component("obj-world", {
 		// 	onUpdate({t, dt, frameCount}) {
 		// 		let hue = (noise(t*.02)+1)*180
 		// 		Vue.set(this.color.v, 0, hue)
-				
+
 		// 		// console.log(this.color[0] )
 		// 	}
 		// })
@@ -375,4 +411,3 @@ Vue.component("obj-world", {
 	props: ["room"]
 
 })
-

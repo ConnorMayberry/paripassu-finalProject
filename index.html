@@ -11,16 +11,16 @@
 	<link rel="icon" href="css/img/favicon.ico">
 	<link rel="stylesheet" href="css/page.css">
 	<link rel="stylesheet" href="css/paripassu.css">
-	
+
 
 	<!-- External libs -->
 	<script  src="js/vendor/uuidv4.min.js"></script>
-	
+
 	<script  src="js/vendor/aframe.min.js"></script>
 	<!-- <script  src="js/vendor/aframe-clickdrag-jesstelford.js"></script> -->
   	<!-- <script src="https://unpkg.com/aframe-click-drag-component"></script> -->
   	<!--   <script src="https://jesstelford.github.io/aframe-click-drag-component/build.js"></script> -->
- 
+
 	<script  src="js/vendor/simplex-noise.js"></script>
 	<script  src="js/vendor/uuidv4.min.js"></script>
 	<script  src="js/vendor/vue.js"></script>
@@ -34,12 +34,13 @@
 	<script  src="js/three-utils.js" ></script>
 	<script  src="js/liveobject.js" ></script>
 
-	
+
 	<script  src="js/test-body.js" ></script>
 
 	<!-- YOUR CODE GOES IN THESE TWO -->
 	<script  src="js/custom.js" ></script>
 	<script  src="js/v-snowman.js"></script>
+	<script  src="js/v-igloo.js"></script>
 	<script  src="js/v-customobjects.js" ></script>
 
 	<script  src="js/v-body.js" ></script>
@@ -79,7 +80,7 @@
 				console.log(`Firebase: ${uid} user just signed in`)
 				room.connectToFirebase({
 					user: user,
-					authID: uid, 
+					authID: uid,
 					databaseRef: firebase.database()
 				})
 
@@ -105,19 +106,21 @@
 			// ...
 			console.log(error)
 		});
-		  
+
 
 
 	</script> -->
 
 </head>
 <body>
+
+
 	<div id="app">
-		
+
 	</div>
-		
-		
+
+
 
 </body>
-	
+
 </html>
