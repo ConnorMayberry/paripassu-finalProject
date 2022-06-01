@@ -180,7 +180,7 @@ Vue.component("obj-world", {
 			<a-entity id="directionaltarget" position="-10 0 -20"></a-entity>
 		</a-light>
 
-		<a-cone 
+		<!-- <a-cone 
 			v-for="(tree,index) in trees"
 			:key="'tree' + index"
 			shadow 
@@ -194,7 +194,7 @@ Vue.component("obj-world", {
 			
 			:rotation="tree.rotation.toAFrame()"
 			:position="tree.position.toAFrame()">
-		</a-cone>
+		</a-cone> -->
 
 		<!-- snowmen -->
 		<a-entity>
@@ -248,7 +248,7 @@ Vue.component("obj-world", {
 
 		
 
-		<a-box 
+		<!-- <a-box 
 			v-for="(rock,index) in rocks"
 			:key="'rock' + index"
 			shadow 
@@ -262,7 +262,7 @@ Vue.component("obj-world", {
 			
 			:rotation="rock.rotation.toAFrame()"
 			:position="rock.position.toAFrame()">
-		</a-box>
+		</a-box> -->
 
 	</a-entity>
 		`,
