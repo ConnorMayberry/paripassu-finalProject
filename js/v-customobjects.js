@@ -133,6 +133,8 @@ Vue.component("obj-fire", {
 			this.obj.fireStrength += 1
 			this.obj.fireStrength = this.obj.fireStrength%10 + 1
 
+			Vue.set(this.obj.color.v, 0, Math.random()*360)
+
 			// Tell the server about this action
 			this.obj.post()
 		}
@@ -326,12 +328,12 @@ Vue.component("obj-world", {
 		let fire = new LiveObject(this.room, {
 			paritype: "fire",  // Tells it which type to use
 			uid: "fire0",
-			onUpdate({t, dt, frameCount}) {
-				let hue = (noise(t*.02)+1)*180
-				Vue.set(this.color.v, 0, hue)
+			// onUpdate({t, dt, frameCount}) {
+			// 	let hue = (noise(t*.02)+1)*180
+			// 	Vue.set(this.color.v, 0, hue)
 				
-				// console.log(this.color[0] )
-			}
+			// 	// console.log(hue)
+			// }
 		})
 
 		fire.position.set(1, 0, -2)
